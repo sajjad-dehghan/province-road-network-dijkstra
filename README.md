@@ -1,3 +1,29 @@
+<!-- visual-showroom:start -->
+<p align="center">
+  <img src="docs/showroom/readme-banner.svg" alt="Province Road Network — repository cover" width="100%">
+</p>
+
+<p align="center">
+  <strong>Province Road Network</strong><br>
+  TOOLS &amp; INTERFACES
+</p>
+
+<p align="center">
+  <a href="https://sajjad-dehghan-personal-site.prisoner-sedwna.workers.dev/projects/province-road-network"><strong>Explore the showroom ↗</strong></a> ·
+  <a href="#implementation--original-documentation">Setup &amp; implementation ↓</a>
+</p>
+
+A data structures project in C++: road graphs for provinces and their cities, with Dijkstra finding the cheapest route inside a province and between provinces.
+
+This is a code/notebook project. No product-interface screenshot is published; the graphic above is a repository cover, not a fabricated interface.
+
+## Implementation & original documentation
+
+The existing run instructions, architecture, limitations and credits are preserved below.
+
+---
+<!-- visual-showroom:end -->
+
 # Sapp — Province Road Network Route Finder
 
 A C++ data structures project that models provinces, cities, and roads as graphs and uses Dijkstra's algorithm to find minimum road costs within a province and between provinces.
