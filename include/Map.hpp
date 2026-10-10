@@ -1,37 +1,21 @@
-#include "Province.hpp"
+#pragma once
+#include "City.hpp"
 #include "GPS.hpp"
-#include "Queue.hpp"
-// ------------------------------------------------------------------------------------------------------
-class Map
-{
-private:
-    int number_province;
-    int number_city[SIZE_OF_PROVINCE];
-    int bg_count = 0;
-
+#include "Province.hpp"
+#include <map>
+#include <ostream>
+#include <string>
+#include <vector>
+class Map {
+    std::vector<City> cities_;
+    routing::Graph graph_;
+    std::map<std::string, std::size_t> index_;
+    std::map<std::string, Province> provinces_;
 public:
-    GPS gps;
-    Queue queue;
-    Province province[SIZE_OF_PROVINCE];
-    tuple<string, int, string, string> parse_CreateMap_instruction(string creat);
-    tuple<string, string, int, string, string> parse_CreateRoad_instruction(string creat);
-    tuple<string, string, string, string> parse_find_local(string command);
-
-    void find_route_taken(int **foreign_matrix);
-    int found_city_id(string Province_, string City_);
-    void createMap();
-    int** createRoad();
-    int **create_foreign_matrix();
-    void set_bg_count();
-    int get_bg_count();
-    const void show_foreign_matrix(int **foreign_matrix);
-    void create_local_matrix();
-    void set_bg_id_foreign_matrix(int **foreign_matrix,int temp[]);
-    void set_node_id_local_matrix(int i_c, int i_p);
-    const void show_local_matrix();
-    const void set_cost_foreign_matrix(auto instruction,int **foreign_matrix,int city_id_start,int city_id_end);
-    const void set_cost_local_matrix(auto instruction, int **foreign_matrix, int city_id_start, int city_id_end);
-    const void set_min_cost_local_matrix();
-    const void set_min_cost_foreign_matrix(int **foreign_matrix);
+    void addCity(const City& city);
+    void addRoad(const std::string& from, const std::string& to, routing::Cost cost);
+    routing::Route find(const std::string& from, const std::string& to, bool localOnly = false) const;
+    bool execute(const std::string& line, std::ostream& out);
+    const std::vector<City>& cities() const { return cities_; }
+    const routing::Graph& graph() const { return graph_; }
 };
-// ------------------------------------------------------------------------------------------------------

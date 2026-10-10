@@ -1,12 +1,5 @@
+#pragma once
 #include "Map.hpp"
-// ------------------------------------------------------------------------------------------------------
-class App
-{
-public:
-    App();
-    Map myMap;
-
-    void splashScreen() const;
-
-};
-// ------------------------------------------------------------------------------------------------------
+#include <istream>
+#include <ostream>
+class App { public: int run(std::istream& input, std::ostream& output, std::ostream& errors); };

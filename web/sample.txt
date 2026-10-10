@@ -1,0 +1,45 @@
+// -----------------------------------------------Qom----------------------------------------------------
+CREATE (A: Node, {id: '1', Type: 'NON_BG'}, Qom: province)
+CREATE (B: Node, {id: '2', Type: 'BG'}, Qom: province)
+CREATE (C: Node, {id: '3', Type: 'NON_BG'}, Qom: province)
+CREATE (D: Node, {id: '4', Type: 'NON_BG'}, Qom: province)
+CREATE (E: Node, {id: '5', Type: 'BG'}, Qom: province)
+// -------------------------------------------------Yazd-------------------------------------------------
+CREATE (F: Node, {id: '6', Type: 'BG'}, Yazd: province)
+CREATE (G: Node, {id: '7', Type: 'NON_BG'}, Yazd: province)
+CREATE (H: Node, {id: '8', Type: 'BG'}, Yazd: province)
+CREATE (I: Node, {id: '9', Type: 'NON_BG'}, Yazd: province)
+CREATE (J: Node, {id: '10', Type: 'BG'}, Yazd: province)
+// ----------------------------------------------Tabriz--------------------------------------------------
+CREATE (K: Node, {id: '11', Type: 'NON_BG'}, Tabriz: province)
+CREATE (L: Node, {id: '12', Type: 'BG'}, Tabriz: province)
+CREATE (M: Node, {id: '13', Type: 'BG'}, Tabriz: province)
+CREATE (N: Node, {id: '14', Type: 'BG'}, Tabriz: province)
+CREATE (O: Node, {id: '15', Type: 'NON_BG'}, Tabriz: province)
+// ------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+// -----------------------------------------------foreign------------------------------------------------
+CREATE (B.Qom) – [:ROAD {cost:7}] –> (N.Tabriz)
+CREATE (E.Qom) – [:ROAD {cost:10}] –> (N.Tabriz) 
+CREATE (B.Qom) – [:ROAD {cost:6}] –> (J.Yazd)
+CREATE (E.Qom) – [:ROAD {cost:12}] –> (H.Yazd)
+CREATE (H.Yazd) – [:ROAD {cost:5}] –> (N.Tabriz) 
+// ------------------------------------------------local-------------------------------------------------
+CREATE (E.Qom) – [:ROAD {cost:50}] –> (A.Qom) 
+CREATE (E.Qom) – [:ROAD {cost:80}] –> (B.Qom) 
+CREATE (E.Qom) – [:ROAD {cost:20}] –> (D.Qom) 
+CREATE (E.Qom) – [:ROAD {cost:40}] –> (C.Qom)
+CREATE (A.Qom) – [:ROAD {cost:25}] –> (B.Qom) 
+CREATE (A.Qom) – [:ROAD {cost:15}] –> (D.Qom) 
+CREATE (A.Qom) – [:ROAD {cost:10}] –> (C.Qom) 
+CREATE (B.Qom) – [:ROAD {cost:70}] –> (D.Qom) 
+CREATE (B.Qom) – [:ROAD {cost:100}] –> (C.Qom) 
+CREATE (C.Qom) – [:ROAD {cost:85}] –> (D.Qom) 
+// ------------------------------------------------------------------------------------------------------
+
+FIND Qom.C->Tabriz.N

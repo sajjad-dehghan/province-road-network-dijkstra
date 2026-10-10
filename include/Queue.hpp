@@ -1,23 +1,11 @@
-#include <iostream>
-
-class Node {
-public:
-    int data;
-    Node* next;
-
-    Node(int value) : data(value), next(nullptr) {}
-};
-
+#pragma once
+#include <queue>
 class Queue {
-private:
-    Node* frontNode;
-    Node* rearNode;
-
+    std::queue<int> values_;
 public:
-    Queue() : frontNode(nullptr), rearNode(nullptr) {}
-    bool isEmpty();
-    void enqueue(int value);
-    void dequeue();
-    int front();
+    bool isEmpty() const { return values_.empty(); }
+    void enqueue(int value) { values_.push(value); }
+    void dequeue() { if (!values_.empty()) values_.pop(); }
+    int front() const { return values_.empty() ? -1 : values_.front(); }
 };
 

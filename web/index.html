@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f4f3ed"><title>شبکهٔ راه‌ها — Province Road Network</title><meta name="description" content="Explore a province road graph and find the cheapest route with Dijkstra."><link rel="stylesheet" href="./style.css"><script type="module" src="./app.mjs"></script></head>
+<body>
+<header class="shell top"><a href="/fa#all-projects" class="brand" dir="ltr">SD<span> / labs</span></a><a href="https://github.com/sajjad-dehghan/province-road-network-dijkstra" target="_blank" rel="noreferrer">کد پروژه ↗</a></header>
+<main class="shell">
+<section class="intro"><div><p class="eyebrow">PROVINCE ROAD NETWORK / 01</p><h1>هر راهی، یک هزینه.<br><em>بهترین مسیر را پیدا کن.</em></h1></div><p>از شهرها تا استان‌ها؛ یک آزمایش کوچک با گراف و دایکسترا. مبدأ و مقصد را انتخاب کن، مسیر کم‌هزینه را ببین و جاده‌ها را تغییر بده.</p></section>
+<section class="workspace">
+<aside class="controls" aria-label="تنظیمات مسیر">
+<div class="section-heading"><span class="dot"></span><h2>کجا می‌رویم؟</h2><span class="mini">01 / ROUTE</span></div>
+<form id="route-form">
+<label for="from">از شهر</label><select id="from" name="from"></select>
+<label for="to">به شهر</label><select id="to" name="to"></select>
+<label for="scope">محدودهٔ جست‌وجو</label><select id="scope"><option value="all">کل شبکه · بین استان‌ها</option><option value="local">فقط داخل استان</option></select>
+<button class="primary" type="submit">پیدا کردن مسیر <span aria-hidden="true">↗</span></button>
+</form>
+<div id="result" role="status" aria-live="polite"></div>
+<p class="note">هزینه‌ها واحد قراردادی‌اند، نه کیلومتر یا مبلغ واقعی. این نمودار نقشهٔ جغرافیایی نیست.</p>
+</aside>
+<div class="canvas-card">
+<div class="canvas-heading"><div><span class="eyebrow">A SMALL WORLD OF CONNECTIONS</span><h2>شبکهٔ راه‌ها</h2></div><span id="counts" class="count"></span></div>
+<button id="zoom" class="quiet graph-zoom" aria-pressed="false" type="button">بزرگ‌نمایی نمودار +</button>
+<div class="graph-wrap" tabindex="0" aria-label="نمودار قابل پیمایش"><svg id="graph" viewBox="0 0 900 540" role="img" aria-labelledby="graph-title graph-desc"><title id="graph-title">گراف جاده‌های سه استان</title><desc id="graph-desc">شهرها با خطوط جاده و هزینهٔ هر جاده متصل‌اند. مسیر انتخاب‌شده با رنگ سبز مشخص می‌شود.</desc></svg></div>
+<div class="legend"><span><i class="route-key"></i> مسیر انتخاب‌شده</span><span><i class="gateway-key"></i> شهر مرزی BG</span><span><i class="road-key"></i> جادهٔ دوطرفه</span></div>
+</div>
+</section>
+<section class="editor">
+<div class="editor-intro"><p class="eyebrow">02 / MAKE A CONNECTION</p><h2>شبکه را تغییر بده.</h2><p>جاده بساز یا هزینه‌اش را عوض کن. مسیر بعدی ممکن است فرق کند.</p><button id="reset" class="quiet" type="button">بازگشت به نمونهٔ اصلی ↺</button></div>
+<div class="editor-body">
+<form id="road-form" class="road-form"><label>شهر اول<select id="road-from" aria-label="شهر اول"></select></label><label>شهر دوم<select id="road-to" aria-label="شهر دوم"></select></label><label>هزینه<input aria-label="هزینه" id="cost" type="number" min="0" max="1000000000" step="1" value="12" required></label><button type="submit" class="primary">ثبت جاده +</button></form>
+<p id="edit-status" role="status" aria-live="polite"></p>
+<div id="roads" class="roads" aria-label="فهرست جاده‌ها"></div>
+<details><summary>ورودی دستورات · سازگار با نسخهٔ C++</summary><label for="commands">دستورات شبکه (CREATE / FIND / LOCAL)</label><textarea id="commands" dir="ltr" rows="9" spellcheck="false"></textarea><div class="actions"><button id="import" type="button" class="quiet">بارگذاری دستورات</button><button id="export" type="button" class="quiet">گرفتن دستورات شبکهٔ فعلی</button></div><p id="import-status" role="status"></p></details>
+</div>
+</section>
+<footer><span>ساختهٔ سجاد دهقان</span><p>نسخهٔ مرورگریِ الگوریتم پروژهٔ C++ · دادهٔ نمونهٔ مخزن · بدون ارسال اطلاعات یا مسیریابی خیابانی</p><a href="/fa/projects/province-road-network">شو‌روم پروژه ↗</a></footer>
+</main></body></html>

@@ -1,2 +1,8 @@
+/build/
+/app
+/app.exe
+*.obj
 *.o
 *.exe
+/tests/route-tests
+/tests/route-tests.exe

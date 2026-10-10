@@ -1,66 +1,39 @@
 #include "../include/GPS.hpp"
-// ------------------------------------------------------------------------------------------------------
-void GPS::Dijkstra_local(int adjacencyMatrix[SIZE_OF_CITY][SIZE_OF_CITY], int number_city, int start, int distances[])
-{
-    bool visited[number_city];
-    for (int i = 1; i <= number_city; ++i) // <=  corrct to : <
-    {
-        distances[i] = INF;
-        visited[i] = false;
-    }
-
-    distances[start] = 0;
-
-    for (int count = 0; count < number_city - 1; ++count)
-    {
-        int u = -1;
-        for (int i = 1; i <= number_city; ++i)
-        {
-            if (!visited[i] && (u == -1 || distances[i] < distances[u]))
-                u = i;
-        }
-
-        visited[u] = true;
-
-        for (int v = 1; v <= number_city; ++v)
-        {
-            if (!visited[v] && adjacencyMatrix[u][v] && distances[u] != INF &&
-                distances[u] + adjacencyMatrix[u][v] < distances[v])
-            {
-                distances[v] = distances[u] + adjacencyMatrix[u][v];
+#include <algorithm>
+#include <functional>
+#include <queue>
+#include <stdexcept>
+routing::Route routing::dijkstra(const Graph& graph, std::size_t start, std::size_t end) {
+    if (start >= graph.size() || end >= graph.size()) throw std::invalid_argument("Unknown endpoint");
+    for (const auto& edges : graph)
+        for (const auto& edge : edges)
+            if (edge.first >= graph.size() || edge.second < 0) throw std::invalid_argument("Invalid road");
+    std::vector<Cost> distance(graph.size(), INF);
+    std::vector<std::size_t> parent(graph.size(), graph.size());
+    using Entry = std::pair<Cost, std::size_t>;
+    std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> pending;
+    distance[start] = 0;
+    pending.push({0, start});
+    while (!pending.empty()) {
+        const auto [cost, node] = pending.top();
+        pending.pop();
+        if (cost != distance[node]) continue;
+        if (node == end) break;
+        for (const auto& [next, weight] : graph[node]) {
+            if (cost > INF - weight) continue; // no signed overflow
+            const auto candidate = cost + weight;
+            if (candidate < distance[next]) {
+                distance[next] = candidate; parent[next] = node;
+                pending.push({candidate, next});
             }
         }
     }
-}
-// ------------------------------------------------------------------------------------------------------
-void GPS::Dijkstra_foreign(int **adjacencyMatrix, int bg_count_, int start, int distances[])
-{
-    bool visited[bg_count_];
-    for (int i = 1; i <= bg_count_; ++i) // <=  corrct to : <
-    {
-        distances[i] = INF;
-        visited[i] = false;
+    if (distance[end] == INF) return {};
+    Route result{true, distance[end], {}};
+    for (auto node = end;; node = parent[node]) {
+        result.path.push_back(node);
+        if (node == start) break;
     }
-    distances[start] = 0;
-
-    for (int count = 0; count < bg_count_ - 1; ++count)
-    {
-        int u = -1;
-        for (int i = 1; i <= bg_count_; ++i)
-        {
-            if (!visited[i] && (u == -1 || distances[i] < distances[u]))
-                u = i;
-        }
-
-        visited[u] = true;
-
-        for (int v = 1; v <= bg_count_; ++v)
-        {
-            if (!visited[v] && adjacencyMatrix[u][v] && distances[u] != INF &&
-                distances[u] + adjacencyMatrix[u][v] < distances[v])
-            {
-                distances[v] = distances[u] + adjacencyMatrix[u][v];
-            }
-        }
-    }
+    std::reverse(result.path.begin(), result.path.end());
+    return result;
 }

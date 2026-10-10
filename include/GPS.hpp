@@ -1,17 +1,12 @@
-#include <iostream>
+#pragma once
+#include <cstdint>
 #include <limits>
-using namespace std;
-#define SIZE_OF_CITY 10
-// ------------------------------------------------------------------------------------------------------
-class GPS
-{
-private:
-    const int INF = numeric_limits<int>::max();
-
-public:
-    void Dijkstra_local(int adjacencyMatrix[SIZE_OF_CITY][SIZE_OF_CITY], int number_city, int start, int distances[]);
-    void Dijkstra_foreign(int** adjacencyMatrix,int bg_count_,int start,int distances[]);
-
-    // در این حد فقط بدون که کمترین کاست رو میده تحویل میده
-};
-// ------------------------------------------------------------------------------------------------------
+#include <utility>
+#include <vector>
+namespace routing {
+using Cost = std::int64_t;
+constexpr Cost INF = std::numeric_limits<Cost>::max();
+using Graph = std::vector<std::vector<std::pair<std::size_t, Cost>>>;
+struct Route { bool reachable = false; Cost cost = 0; std::vector<std::size_t> path; };
+Route dijkstra(const Graph& graph, std::size_t start, std::size_t end);
+}
